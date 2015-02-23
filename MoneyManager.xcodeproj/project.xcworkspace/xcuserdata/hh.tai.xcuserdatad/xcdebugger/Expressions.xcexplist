@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[ViewController fetchDataByUserId:completionHandler:]:ViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__29-[ViewController viewDidLoad]_block_invoke_2:ViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__29-[ViewController showCategry]_block_invoke:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userCategory">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__55-[ViewController getCategoryListWithCompletionHandler:]_block_invoke:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userCategory">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController viewDidLoad]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userID">
+            </PersistentString>
+            <PersistentString
+               value = "recordID.recordName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__27-[ViewController getUserID]_block_invoke:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController getUserID]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__33-[ViewController getCategoryList]_block_invoke:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userCategory">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__29-[ViewController viewDidLoad]_block_invoke:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController showCategry]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userCategory">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

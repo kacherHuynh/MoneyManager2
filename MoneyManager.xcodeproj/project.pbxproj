@@ -14,6 +14,12 @@
 		02EF9A671A91E678007A2E83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A661A91E678007A2E83 /* Images.xcassets */; };
 		02EF9A6A1A91E678007A2E83 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A681A91E678007A2E83 /* LaunchScreen.xib */; };
 		02EF9A761A91E678007A2E83 /* MoneyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A751A91E678007A2E83 /* MoneyManagerTests.m */; };
+		02EF9A811A92E4AD007A2E83 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EF9A801A92E4AD007A2E83 /* CloudKit.framework */; };
+		02EF9A891A96EC14007A2E83 /* CTPopOutMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */; };
+		02EF9A941A9AED67007A2E83 /* UserDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A931A9AED67007A2E83 /* UserDataView.m */; };
+		02EF9A971A9AFA70007A2E83 /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A961A9AFA70007A2E83 /* MyLabel.m */; };
+		02EF9A991A9AFBB4007A2E83 /* Quicksand_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A981A9AFBB0007A2E83 /* Quicksand_Light.otf */; };
+		02EF9A9B1A9B1BDF007A2E83 /* Steinerlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A9A1A9B1B07007A2E83 /* Steinerlight.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,16 @@
 		02EF9A6F1A91E678007A2E83 /* MoneyManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02EF9A741A91E678007A2E83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02EF9A751A91E678007A2E83 /* MoneyManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoneyManagerTests.m; sourceTree = "<group>"; };
+		02EF9A7F1A91E6A3007A2E83 /* MoneyManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MoneyManager.entitlements; sourceTree = "<group>"; };
+		02EF9A801A92E4AD007A2E83 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		02EF9A871A96EC14007A2E83 /* CTPopOutMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTPopOutMenu.h; sourceTree = "<group>"; };
+		02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTPopOutMenu.m; sourceTree = "<group>"; };
+		02EF9A921A9AED67007A2E83 /* UserDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataView.h; sourceTree = "<group>"; };
+		02EF9A931A9AED67007A2E83 /* UserDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataView.m; sourceTree = "<group>"; };
+		02EF9A951A9AFA70007A2E83 /* MyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLabel.h; sourceTree = "<group>"; };
+		02EF9A961A9AFA70007A2E83 /* MyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLabel.m; sourceTree = "<group>"; };
+		02EF9A981A9AFBB0007A2E83 /* Quicksand_Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Quicksand_Light.otf; sourceTree = "<group>"; };
+		02EF9A9A1A9B1B07007A2E83 /* Steinerlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Steinerlight.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02EF9A811A92E4AD007A2E83 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +80,7 @@
 		02EF9A4D1A91E678007A2E83 = {
 			isa = PBXGroup;
 			children = (
+				02EF9A801A92E4AD007A2E83 /* CloudKit.framework */,
 				02EF9A581A91E678007A2E83 /* MoneyManager */,
 				02EF9A721A91E678007A2E83 /* MoneyManagerTests */,
 				02EF9A571A91E678007A2E83 /* Products */,
@@ -81,14 +99,21 @@
 		02EF9A581A91E678007A2E83 /* MoneyManager */ = {
 			isa = PBXGroup;
 			children = (
+				02EF9A7F1A91E6A3007A2E83 /* MoneyManager.entitlements */,
 				02EF9A5D1A91E678007A2E83 /* AppDelegate.h */,
 				02EF9A5E1A91E678007A2E83 /* AppDelegate.m */,
 				02EF9A601A91E678007A2E83 /* ViewController.h */,
 				02EF9A611A91E678007A2E83 /* ViewController.m */,
+				02EF9A921A9AED67007A2E83 /* UserDataView.h */,
+				02EF9A931A9AED67007A2E83 /* UserDataView.m */,
+				02EF9A951A9AFA70007A2E83 /* MyLabel.h */,
+				02EF9A961A9AFA70007A2E83 /* MyLabel.m */,
 				02EF9A631A91E678007A2E83 /* Main.storyboard */,
 				02EF9A661A91E678007A2E83 /* Images.xcassets */,
 				02EF9A681A91E678007A2E83 /* LaunchScreen.xib */,
 				02EF9A591A91E678007A2E83 /* Supporting Files */,
+				02EF9A871A96EC14007A2E83 /* CTPopOutMenu.h */,
+				02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */,
 			);
 			path = MoneyManager;
 			sourceTree = "<group>";
@@ -96,6 +121,8 @@
 		02EF9A591A91E678007A2E83 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				02EF9A9A1A9B1B07007A2E83 /* Steinerlight.ttf */,
+				02EF9A981A9AFBB0007A2E83 /* Quicksand_Light.otf */,
 				02EF9A5A1A91E678007A2E83 /* Info.plist */,
 				02EF9A5B1A91E678007A2E83 /* main.m */,
 			);
@@ -168,6 +195,12 @@
 				TargetAttributes = {
 					02EF9A551A91E678007A2E83 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 9N2S8JFGBN;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					02EF9A6E1A91E678007A2E83 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -199,9 +232,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02EF9A991A9AFBB4007A2E83 /* Quicksand_Light.otf in Resources */,
 				02EF9A651A91E678007A2E83 /* Main.storyboard in Resources */,
 				02EF9A6A1A91E678007A2E83 /* LaunchScreen.xib in Resources */,
 				02EF9A671A91E678007A2E83 /* Images.xcassets in Resources */,
+				02EF9A9B1A9B1BDF007A2E83 /* Steinerlight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,8 +254,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02EF9A971A9AFA70007A2E83 /* MyLabel.m in Sources */,
+				02EF9A891A96EC14007A2E83 /* CTPopOutMenu.m in Sources */,
 				02EF9A621A91E678007A2E83 /* ViewController.m in Sources */,
 				02EF9A5F1A91E678007A2E83 /* AppDelegate.m in Sources */,
+				02EF9A941A9AED67007A2E83 /* UserDataView.m in Sources */,
 				02EF9A5C1A91E678007A2E83 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,9 +383,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MoneyManager/MoneyManager.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MoneyManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -355,9 +398,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MoneyManager/MoneyManager.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MoneyManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -414,6 +462,7 @@
 				02EF9A7B1A91E678007A2E83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		02EF9A7C1A91E678007A2E83 /* Build configuration list for PBXNativeTarget "MoneyManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +471,7 @@
 				02EF9A7E1A91E678007A2E83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

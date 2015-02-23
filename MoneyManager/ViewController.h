@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CTPopOutMenu.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate,CTPopoutMenuDelegate>
 
 
 @end
