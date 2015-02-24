@@ -13,6 +13,7 @@
 
 @property (nonatomic) UIFont *font;
 @property (nonatomic) UIColor *color;
+@property (nonatomic) NSArray *categoryList;
 @end
 
 @implementation UserDataView
@@ -47,16 +48,16 @@
     title.textColor = self.color;
     [self addSubview:title];
     
-    NSArray *categoryList = [[NSArray alloc]initWithObjects:@"Foods", @"Train", @"Shopping", @"General", nil];
+    self.categoryList = [[NSArray alloc]initWithObjects:@"Foods", @"Train", @"Shopping", @"General", nil];
     float x = title.frame.origin.x;
     float y = title.frame.origin.y + rowHeight;
     
-    for (int i = 0; i < categoryList.count; i++) {
+    for (int i = 0; i < self.categoryList.count; i++) {
         
         // Create categories
         
         MyLabel *category = [[MyLabel alloc]initWithFrame:CGRectMake(x, y, categoryColWidth, rowHeight)];
-        category.text = [NSString stringWithFormat:@"%@", categoryList[i]];
+        category.text = [NSString stringWithFormat:@"%@", self.categoryList[i]];
         category.font = self.font;
         switch (i) {
             case 0:
@@ -79,7 +80,7 @@
         // Create Value column
         
         MyLabel *value = [[MyLabel alloc]initWithFrame:CGRectMake(x+categoryColWidth, y, valueColWidth, rowHeight)];
-        value.tag = i;
+        value.tag = i+1;
         value.text = @"00000";
         value.font = self.font;
         value.textColor = self.color;
@@ -89,7 +90,7 @@
         // Create Rate column
         
         MyLabel *rate = [[MyLabel alloc]initWithFrame:CGRectMake(x+categoryColWidth+valueColWidth, y, rateColWidth, rowHeight)];
-        rate.tag = 10 + i;
+        rate.tag = 10 + value.tag;
         rate.text = @"00%";
         rate.font = self.font;
         rate.textColor = self.color;
@@ -120,22 +121,74 @@
     for (int i = 0; i < record.count ; i++) {
         if ([record[i][@"Category"] isEqualToString:@"Foods"]) {
             // Calculate for Foods here
+            
             food += [record[i][@"Amount"] intValue];
+            UILabel *foodLabel = (UILabel *)[self viewWithTag:1];
+            foodLabel.text = [NSString stringWithFormat:@"%i", food];
+            
         }else if ([record[i][@"Category"] isEqualToString:@"Train"]){
             // Calcualte for Train here
+            
             train += [record[i][@"Amount"] intValue];
+            UILabel *trainLabel = (UILabel *)[self viewWithTag:2];
+            trainLabel.text = [NSString stringWithFormat:@"%i", train];
+            
         }else if ([record[i][@"Category"] isEqualToString:@"Shopping"]){
             // Calcualte for Shopping here
+            
             shopping += [record[i][@"Amount"] intValue];
-        }else if ([record[i][@"Category"] isEqualToString:@"Foods"]){
+            UILabel *shoppingLabel = (UILabel *)[self viewWithTag:3];
+            shoppingLabel.text = [NSString stringWithFormat:@"%i", shopping];
+            
+        }else if ([record[i][@"Category"] isEqualToString:@"General"]){
             // Calculate for General here
+            
             general += [record[i][@"Amount"] intValue];
+            UILabel *generalLabel = (UILabel *)[self viewWithTag:4];
+            generalLabel.text = [NSString stringWithFormat:@"%i", general];
         }
     }
     
+    NSArray *array = [[NSArray alloc]initWithObjects:
+                      [NSNumber numberWithInt:food],
+                      [NSNumber numberWithInt:train],
+                      [NSNumber numberWithInt:shopping],
+                      [NSNumber numberWithInt:general],nil];
+    for (int r = 11; r < 15; r++) {
+        UILabel *label = (UILabel *)[self viewWithTag:r];
+        switch (label.tag) {
+            case 11:
+                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:food wihtThisSumOfArray:array]];
+                break;
+            
+            case 12:
+                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:train wihtThisSumOfArray:array]];
+                break;
+                
+            case 13:
+                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:shopping wihtThisSumOfArray:array]];
+                break;
+                
+            case 14:
+                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:general wihtThisSumOfArray:array]];
+                break;
+            default:
+                break;
+        }
+    }
     
-    NSLog(@"TRAIN: %i, SHOPPING: %i, GENERAL: %i, FOODS: %i", train, shopping, general, food);
 }
 
+- (NSString *)percentageOfthisValue:(int)value wihtThisSumOfArray:(NSArray *)arr{
+    float sum = 0;
+    for (int i = 0; i < arr.count; i++) {
+        int intNum = [arr[i] intValue];
+        sum += intNum;
+    }
+    
+    int result = (int)(value/sum*100);
+    return [NSString stringWithFormat:@"%i", result];
+    
+}
 
 @end
