@@ -120,16 +120,16 @@
     for (int i = 0; i < record.count ; i++) {
         if ([record[i][@"Category"] isEqualToString:@"Foods"]) {
             // Calculate for Foods here
-            food += (int)record[i][@"Amount"];
+            food += [record[i][@"Amount"] intValue];
         }else if ([record[i][@"Category"] isEqualToString:@"Train"]){
             // Calcualte for Train here
-            train += (int)record[i][@"Amount"];
+            train += [record[i][@"Amount"] intValue];
         }else if ([record[i][@"Category"] isEqualToString:@"Shopping"]){
             // Calcualte for Shopping here
-            shopping += (int)record[i][@"Amount"];
+            shopping += [record[i][@"Amount"] intValue];
         }else if ([record[i][@"Category"] isEqualToString:@"Foods"]){
             // Calculate for General here
-            general += (int)record[i][@"Amount"];
+            general += [record[i][@"Amount"] intValue];
         }
     }
     

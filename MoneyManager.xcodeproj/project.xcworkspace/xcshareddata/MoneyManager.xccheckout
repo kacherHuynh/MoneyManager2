@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DAAFAE1F-87CB-4D95-B5B9-EAA626B3130B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MoneyManager</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DA994A534DA3F5085ED049B26E5D242214D2E382</key>
+		<string>https://github.com/kacherHuynh/MoneyManager2.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MoneyManager.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DA994A534DA3F5085ED049B26E5D242214D2E382</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kacherHuynh/MoneyManager2.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DA994A534DA3F5085ED049B26E5D242214D2E382</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DA994A534DA3F5085ED049B26E5D242214D2E382</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MoneyManager</string>
+		</dict>
+	</array>
+</dict>
+</plist>

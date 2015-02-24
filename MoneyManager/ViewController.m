@@ -10,6 +10,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "CTPopOutMenu.h"
 #import "UserDataView.h"
+#import "SplittingTriangle.h"
 
 @import CloudKit;
 
@@ -30,8 +31,8 @@ NSString * const DateField = @"Date";
 @property (nonatomic) __block NSMutableArray *userData;
 @property (nonatomic) UIImageView *imageView;
 @property (nonatomic) UIVisualEffectView *blurView;
-@property (nonatomic) UIView *transView;
-@property (nonatomic) UIView *userDataView;
+@property (nonatomic) UIView *transView, *userDataView;;
+@property (nonatomic) SplittingTriangle *loadingView;
 //@property (nonatomic) int foods,trains,shopping,general;
 //@property (nonatomic) float foodsRate,trainRate,shoppingRate,genralRate;
 
@@ -44,34 +45,37 @@ NSString * const DateField = @"Date";
     [super loadView];
 
     // add imageview as a background
-//    self.imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bg"]];
-//    self.imageView.frame = self.view.frame;
-    
-    
+
     self.view.backgroundColor = [UIColor colorWithRed:64/255.0 green:62/255.0 blue:72/255.0 alpha:1.0];
     
-    // create effect view to add to background view
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    self.blurView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-    self.blurView.frame = self.imageView.bounds;
-    self.blurView.alpha = 0;
-
-    
-//    [self.view addSubview:self.imageView];
+    // create loading view
+    self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
+                      andBackColor:[UIColor clearColor]];
+    self.loadingView.center = self.view.center;
+    self.loadingView.clockwise = YES;
+    self.loadingView.duration = 1.5;
+    self.loadingView.radius = 5;
+    self.loadingView.paused = NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
+
     
     // Init CK
     [self initCloudKit];
     [self getCategoryList];
     
     // Load GUI
+
+    
     [self loadGUI];
     [self loadUserData];
-    
+
+    [self addLoadingScreen];
 }
 
 
@@ -80,8 +84,8 @@ NSString * const DateField = @"Date";
 - (void)loadGUI{
     UserDataView *view = [[UserDataView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
     [self.view addSubview:view];
-    
-    [view refreshData:[self getUserData]];
+    [self refreshUserDataView:view];
+
 }
 
 - (void)loadUserData{
@@ -96,6 +100,70 @@ NSString * const DateField = @"Date";
     
 }
 
+- (void)addLoadingScreen{
+    if (self.loadingView.superview == nil) {
+        self.loadingView.alpha = 0;
+        [self.view addSubview:self.loadingView];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            self.loadingView.alpha = 1.0;
+        }];
+    }
+}
+
+- (void)removeLoadingScreen{
+    
+    [UIView animateWithDuration:0.8 animations:^{
+        self.loadingView.alpha = 0;
+    }];
+    [self.loadingView removeFromSuperview];
+    
+}
+
+- (void)addBlurEffect{
+
+//    if (self.imageView == nil) {
+//        self.imageView = [[UIImageView alloc]init];
+//        self.imageView.frame = self.view.frame;
+//        
+//        // Create effect view
+//        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+//        self.blurView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
+//        self.blurView.frame = self.imageView.bounds;
+//    }
+//    
+//    // Take screen shot at the time we add effect
+//    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+//        UIGraphicsBeginImageContextWithOptions(self.view.window.bounds.size, NO, [UIScreen mainScreen].scale);
+//    else
+//        UIGraphicsBeginImageContext(self.view.window.bounds.size);
+//    
+//    [self.view.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    self.imageView.image = image;
+//    [self.view addSubview:self.imageView];
+//    self.blurView.alpha = 0;
+//    
+//    [self.view addSubview:self.blurView];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        self.blurView.alpha = 1;
+//    }];
+}
+
+- (void)removeBlurEffect{
+    
+//    [UIView animateWithDuration:3 animations:^{
+//        self.imageView.alpha = 0;
+//    } completion:^(BOOL finished) {
+//        [self.imageView removeFromSuperview];
+//        [self.blurView removeFromSuperview];
+//        self.imageView.alpha = 1;
+//    }];
+
+}
+
 #pragma mark PREPARE DATA
 
 - (void)getCategoryListWithCompletionHandler:(void (^)(BOOL finished))completionHandler{
@@ -108,6 +176,7 @@ NSString * const DateField = @"Date";
         self.userCategory = [[NSMutableArray alloc]init];
     }
     // get category list from icloud
+    
     [self fetchCategoryByUserId:self.userID completionHandler:^(NSArray *records) {
         if (self.userCategory.count < records.count) {
             for (int i = (int)self.userCategory.count; i<records.count; i++) {
@@ -115,28 +184,18 @@ NSString * const DateField = @"Date";
             }
         }
     }];
-
 }
 
-- (NSArray *)getUserData{
-    NSArray __block *arr;
+
+
+- (void)refreshUserDataView:(UserDataView *)view{
     [self fetchDataByUserId:self.userID completionHandler:^(NSArray *record) {
-        arr = [[NSArray alloc]initWithArray:record];
-        
+        [view refreshData:record];
     }];
-    return arr;
-    
 }
 
 - (void)showCategry{
-    
-    // add effect view
-    [self.view addSubview:self.blurView];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        self.blurView.alpha = 1.0;
-    }];
-    
+
     // get list and add item for category menu
     [self getCategoryList];
     NSMutableArray *arr = [[NSMutableArray alloc]init];
@@ -156,9 +215,11 @@ NSString * const DateField = @"Date";
 
 
 - (void)initCloudKit{
+
     _container = [CKContainer defaultContainer];
     _publicData = [_container publicCloudDatabase];
-
+    BOOL __block finished = false;
+    
     // get UserID and pass to self.userID
     
     self.userID = [NSString stringWithFormat:@""];
@@ -167,16 +228,16 @@ NSString * const DateField = @"Date";
         if (error== nil) {
             NSLog(@"USER ID: %@", recordID.recordName);
             self.userID = [NSString stringWithFormat:@"%@", recordID.recordName];
+            finished = true;
         }else{
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
         }
     }];
-    while ([self.userID isEqualToString:@""]) {
-        sleep(1);
+    while (!finished) {
+        NSLog(@"loading....");
+        
+        
     }
-    
-    //
-    self.view.userInteractionEnabled = true;
 }
 
 
@@ -299,19 +360,15 @@ NSString * const DateField = @"Date";
     }
     
     // remove blur effect
-    self.blurView.alpha = 0;
-    [self.blurView removeFromSuperview];
+
 }
 
 - (void)menuwillDismiss:(CTPopoutMenu *)menu{
-    
-    // remove blur effect
-    [self.blurView removeFromSuperview];
-    self.blurView.alpha = 0;
+
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-
+    
 }
 
 
