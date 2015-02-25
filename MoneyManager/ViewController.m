@@ -11,6 +11,7 @@
 #import "CTPopOutMenu.h"
 #import "UserDataView.h"
 #import "SplittingTriangle.h"
+#import "XYPieChart.h"
 
 @import CloudKit;
 
@@ -28,11 +29,11 @@ NSString * const DateField = @"Date";
 @property (readonly) CKDatabase *publicData;
 @property (nonatomic) NSString *userID;
 @property (nonatomic) __block NSMutableArray *userCategory;
-@property (nonatomic) __block NSMutableArray *userData;
 @property (nonatomic) UIImageView *imageView;
 @property (nonatomic) UIVisualEffectView *blurView;
 @property (nonatomic) UserDataView *userDataView;
 @property (nonatomic) SplittingTriangle *loadingView;
+@property (nonatomic) XYPieChart *chart;
 //@property (nonatomic) int foods,trains,shopping,general;
 //@property (nonatomic) float foodsRate,trainRate,shoppingRate,genralRate;
 
@@ -49,26 +50,26 @@ NSString * const DateField = @"Date";
     self.view.backgroundColor = [UIColor colorWithRed:64/255.0 green:62/255.0 blue:72/255.0 alpha:1.0];
     
     // create loading view
-//    self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-//    [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
-//                      andBackColor:[UIColor clearColor]];
-//    self.loadingView.center = self.view.center;
-//    self.loadingView.clockwise = YES;
-//    self.loadingView.duration = 1.5;
-//    self.loadingView.radius = 5;
-//    self.loadingView.paused = NO;
+    self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
+                      andBackColor:[UIColor clearColor]];
+    self.loadingView.center = self.view.center;
+    self.loadingView.clockwise = YES;
+    self.loadingView.duration = 1.5;
+    self.loadingView.radius = 5;
+    self.loadingView.paused = NO;
     
     // JUST FOR FUN
     
-    self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];
-    [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
-                      andBackColor:[UIColor clearColor]];
-    self.loadingView.center = CGPointMake(self.view.center.x, self.view.center.y/2);
-    self.loadingView.clockwise = YES;
-    self.loadingView.duration = 1.5;
-    self.loadingView.radius = 30;
-    self.loadingView.paused = NO;
-    [self.view addSubview:self.loadingView];
+//    self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];
+//    [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
+//                      andBackColor:[UIColor clearColor]];
+//    self.loadingView.center = CGPointMake(self.view.center.x, self.view.center.y/2);
+//    self.loadingView.clockwise = YES;
+//    self.loadingView.duration = 1.5;
+//    self.loadingView.radius = 30;
+//    self.loadingView.paused = NO;
+//    [self.view addSubview:self.loadingView];
 }
 
 - (void)viewDidLoad {
@@ -79,13 +80,12 @@ NSString * const DateField = @"Date";
     
     // Init CK
     [self initCloudKit];
-    [self getCategoryList];
+    [self loadUserCategoryList];
     
     // Load GUI
 
     
     [self loadGUI];
-    [self loadUserData];
 
 
 }
@@ -94,23 +94,35 @@ NSString * const DateField = @"Date";
 #pragma mark LAYOUT
 
 - (void)loadGUI{
-     self.userDataView = [[UserDataView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
-    [self refreshUserDataView:self.userDataView];
-    [self.view addSubview:self.userDataView];
-    
-
+    [self loadUserData];
+    [self loadChart];
 }
 
 - (void)loadUserData{
     
-    // Initial View
-
-    // Update View
+    self.userDataView = [[UserDataView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
     
+    [self refreshUserDataView:self.userDataView];
+    [self.view addSubview:self.userDataView];
 }
 
 - (void)loadChart{
+    if (self.chart == nil) {
+        self.chart = [[XYPieChart alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2) Center:CGPointMake(self.view.center.x, self.view.center.y/2) Radius:100];
+        [self.chart setStartPieAngle:M_PI_2];
+        [self.chart setAnimationSpeed:1.0];
+        [self.chart setLabelFont: self.userDataView.font];
+        [self.chart setLabelShadowColor:[UIColor blackColor]];
+        [self.chart setLabelRadius:60];	//optional
+        [self.chart setShowPercentage:YES];	//optional
+        [self.chart setPieBackgroundColor:[UIColor clearColor]];
+        [self.chart setDataSource:self];
+        [self.chart setDelegate:self];
+    }
     
+
+
+    [self.view addSubview:self.chart];
 }
 
 - (void)addLoadingScreen{
@@ -184,7 +196,7 @@ NSString * const DateField = @"Date";
 
 }
 
-- (void)getCategoryList{
+- (void)loadUserCategoryList{
     if (self.userCategory == nil) {
         self.userCategory = [[NSMutableArray alloc]init];
     }
@@ -204,13 +216,14 @@ NSString * const DateField = @"Date";
 - (void)refreshUserDataView:(UserDataView *)view{
     [self fetchDataByUserId:self.userID completionHandler:^(NSArray *record) {
         [view refreshData:record];
+        [self.chart reloadData];
     }];
 }
 
 - (void)showCategry{
 
     // get list and add item for category menu
-    [self getCategoryList];
+    [self loadUserCategoryList];
     NSMutableArray *arr = [[NSMutableArray alloc]init];
     for (int m = 0; m < self.userCategory.count; m++) {
         CTPopoutMenuItem *item = [[CTPopoutMenuItem alloc]
@@ -351,7 +364,7 @@ NSString * const DateField = @"Date";
         }
     }];
     // update category list
-    [self getCategoryList];
+    [self loadUserCategoryList];
 }
 
 #pragma mark DELEGATE 
@@ -384,5 +397,19 @@ NSString * const DateField = @"Date";
     [self refreshUserDataView:self.userDataView];
 }
 
+// DATA SOURCE FOR CHART
+
+- (NSUInteger)numberOfSlicesInPieChart:(XYPieChart *)pieChart{
+    return self.userDataView.userData.count;
+}
+- (CGFloat)pieChart:(XYPieChart *)pieChart valueForSliceAtIndex:(NSUInteger)index{
+    return [self.userDataView.userData[index] intValue];
+}
+//- (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index{
+//    
+//}//optional
+//- (NSString *)pieChart:(XYPieChart *)pieChart textForSliceAtIndex:(NSUInteger)index{
+//    
+//}//optional
 
 @end

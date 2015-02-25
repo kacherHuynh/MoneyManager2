@@ -10,8 +10,8 @@
 #import "MyLabel.h"
 @interface UserDataView : UIView
 
-@property (nonatomic) MyLabel *foodsValue, *trainValue, *shoppingValue, *generalValue, *viewTitle;
-
+@property (nonatomic) NSMutableArray *userData;
+@property (nonatomic) UIFont *font;
 - (void)refreshData:(NSArray *)record;
 
 @end

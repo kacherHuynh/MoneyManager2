@@ -21,6 +21,7 @@
 		02EF9A991A9AFBB4007A2E83 /* Quicksand_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A981A9AFBB0007A2E83 /* Quicksand_Light.otf */; };
 		02EF9A9B1A9B1BDF007A2E83 /* Steinerlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A9A1A9B1B07007A2E83 /* Steinerlight.ttf */; };
 		02EF9AAD1A9C4ECA007A2E83 /* SplittingTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9AAC1A9C4ECA007A2E83 /* SplittingTriangle.m */; };
+		02EF9AB71A9D756D007A2E83 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9AB61A9D756D007A2E83 /* XYPieChart.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		02EF9A9A1A9B1B07007A2E83 /* Steinerlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Steinerlight.ttf; sourceTree = "<group>"; };
 		02EF9AAB1A9C4ECA007A2E83 /* SplittingTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplittingTriangle.h; sourceTree = "<group>"; };
 		02EF9AAC1A9C4ECA007A2E83 /* SplittingTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplittingTriangle.m; sourceTree = "<group>"; };
+		02EF9AB51A9D756D007A2E83 /* XYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPieChart.h; sourceTree = "<group>"; };
+		02EF9AB61A9D756D007A2E83 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,18 +110,12 @@
 				02EF9A5E1A91E678007A2E83 /* AppDelegate.m */,
 				02EF9A601A91E678007A2E83 /* ViewController.h */,
 				02EF9A611A91E678007A2E83 /* ViewController.m */,
-				02EF9A921A9AED67007A2E83 /* UserDataView.h */,
-				02EF9A931A9AED67007A2E83 /* UserDataView.m */,
-				02EF9A951A9AFA70007A2E83 /* MyLabel.h */,
-				02EF9A961A9AFA70007A2E83 /* MyLabel.m */,
+				02EF9AB41A9D749A007A2E83 /* Class */,
+				02EF9AB31A9D7470007A2E83 /* ExtraModule */,
 				02EF9A631A91E678007A2E83 /* Main.storyboard */,
 				02EF9A661A91E678007A2E83 /* Images.xcassets */,
 				02EF9A681A91E678007A2E83 /* LaunchScreen.xib */,
 				02EF9A591A91E678007A2E83 /* Supporting Files */,
-				02EF9A871A96EC14007A2E83 /* CTPopOutMenu.h */,
-				02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */,
-				02EF9AAB1A9C4ECA007A2E83 /* SplittingTriangle.h */,
-				02EF9AAC1A9C4ECA007A2E83 /* SplittingTriangle.m */,
 			);
 			path = MoneyManager;
 			sourceTree = "<group>";
@@ -149,6 +146,30 @@
 				02EF9A741A91E678007A2E83 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		02EF9AB31A9D7470007A2E83 /* ExtraModule */ = {
+			isa = PBXGroup;
+			children = (
+				02EF9AB51A9D756D007A2E83 /* XYPieChart.h */,
+				02EF9AB61A9D756D007A2E83 /* XYPieChart.m */,
+				02EF9A871A96EC14007A2E83 /* CTPopOutMenu.h */,
+				02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */,
+				02EF9AAB1A9C4ECA007A2E83 /* SplittingTriangle.h */,
+				02EF9AAC1A9C4ECA007A2E83 /* SplittingTriangle.m */,
+			);
+			name = ExtraModule;
+			sourceTree = "<group>";
+		};
+		02EF9AB41A9D749A007A2E83 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				02EF9A921A9AED67007A2E83 /* UserDataView.h */,
+				02EF9A931A9AED67007A2E83 /* UserDataView.m */,
+				02EF9A951A9AFA70007A2E83 /* MyLabel.h */,
+				02EF9A961A9AFA70007A2E83 /* MyLabel.m */,
+			);
+			name = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02EF9AB71A9D756D007A2E83 /* XYPieChart.m in Sources */,
 				02EF9AAD1A9C4ECA007A2E83 /* SplittingTriangle.m in Sources */,
 				02EF9A971A9AFA70007A2E83 /* MyLabel.m in Sources */,
 				02EF9A891A96EC14007A2E83 /* CTPopOutMenu.m in Sources */,

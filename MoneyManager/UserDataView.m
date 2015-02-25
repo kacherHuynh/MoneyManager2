@@ -11,7 +11,7 @@
 
 @interface UserDataView()
 
-@property (nonatomic) UIFont *font;
+
 @property (nonatomic) UIColor *color;
 @property (nonatomic) NSArray *categoryList;
 @end
@@ -33,7 +33,7 @@
     // name of categories, value and rate.
     self.font = [UIFont fontWithName:@"Steiner" size:16.0];
     self.color = [UIColor colorWithRed:200/255.0 green:198/255.0 blue:210/255.0 alpha:1];
-    
+    self.userData = [[NSMutableArray alloc]init];
     
     float rowHeight = self.frame.size.height/5;
     float categoryColWidth = self.frame.size.width/3;
@@ -186,6 +186,12 @@
                 break;
         }
     }
+    
+    [self.userData removeAllObjects];
+    [self.userData addObject:[NSNumber numberWithInt:food]];
+    [self.userData addObject:[NSNumber numberWithInt:train]];
+    [self.userData addObject:[NSNumber numberWithInt:shopping]];
+    [self.userData addObject:[NSNumber numberWithInt:general]];
     
 }
 

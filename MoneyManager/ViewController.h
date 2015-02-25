@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CTPopOutMenu.h"
+#import "XYPieChart.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate,CTPopoutMenuDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate,CTPopoutMenuDelegate, XYPieChartDelegate, XYPieChartDataSource>
 
 
 @end
