@@ -34,6 +34,7 @@ NSString * const DateField = @"Date";
 @property (nonatomic) UserDataView *userDataView;
 @property (nonatomic) SplittingTriangle *loadingView;
 @property (nonatomic) XYPieChart *chart;
+@property (nonatomic) UIButton *addButton;
 //@property (nonatomic) int foods,trains,shopping,general;
 //@property (nonatomic) float foodsRate,trainRate,shoppingRate,genralRate;
 
@@ -96,6 +97,15 @@ NSString * const DateField = @"Date";
 - (void)loadGUI{
     [self loadUserData];
     [self loadChart];
+    
+    // Add button
+    self.addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.addButton.frame = CGRectMake(self.view.frame.size.width - 50, 0 , 50, 50);
+    self.addButton.font = [UIFont fontWithName:self.userDataView.font.fontName size:50];
+    [self.addButton addTarget:self action:@selector(showCategry) forControlEvents:UIControlEventTouchUpInside];
+    [self.addButton setTitle:@"+" forState:UIControlStateNormal];
+    self.addButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    [self.view addSubview:self.addButton];
 }
 
 - (void)loadUserData{
@@ -125,10 +135,10 @@ NSString * const DateField = @"Date";
     [self.view addSubview:self.chart];
 }
 
-- (void)addLoadingScreen{
+- (void)showLoadingScreen{
     if (self.loadingView.superview == nil) {
         self.loadingView.alpha = 0;
-        [self.view addSubview:self.loadingView];
+        [self.view insertSubview:self.loadingView aboveSubview:self.chart];
         
         [UIView animateWithDuration:0.2 animations:^{
             self.loadingView.alpha = 1.0;
@@ -342,6 +352,10 @@ NSString * const DateField = @"Date";
             abort();
         }else{
             NSLog(@"ADDED SUCCESSFULY");
+
+            sleep(1); // to wait for data actually added to icloud
+            [self removeLoadingScreen];
+
         }
     }];
 }
@@ -383,6 +397,7 @@ NSString * const DateField = @"Date";
     // check the value, if not null add it to iCloud
     if (![value isEqualToString:@""]) {
         [self addRecoreWithAmount:value forCategory:self.userCategory[index]];
+        
     }
     
     // remove blur effect
@@ -394,7 +409,7 @@ NSString * const DateField = @"Date";
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self refreshUserDataView:self.userDataView];
+
 }
 
 // DATA SOURCE FOR CHART
