@@ -124,28 +124,32 @@
             
             food += [record[i][@"Amount"] intValue];
             UILabel *foodLabel = (UILabel *)[self viewWithTag:1];
-            foodLabel.text = [NSString stringWithFormat:@"%i", food];
+            NSString *string = [NSString stringWithFormat:@"%i", food];
+            [self updateText:string forLabel:foodLabel];
             
         }else if ([record[i][@"Category"] isEqualToString:@"Train"]){
             // Calcualte for Train here
             
             train += [record[i][@"Amount"] intValue];
             UILabel *trainLabel = (UILabel *)[self viewWithTag:2];
-            trainLabel.text = [NSString stringWithFormat:@"%i", train];
+            NSString *string = [NSString stringWithFormat:@"%i", train];
+            [self updateText:string forLabel:trainLabel];
             
         }else if ([record[i][@"Category"] isEqualToString:@"Shopping"]){
             // Calcualte for Shopping here
             
             shopping += [record[i][@"Amount"] intValue];
             UILabel *shoppingLabel = (UILabel *)[self viewWithTag:3];
-            shoppingLabel.text = [NSString stringWithFormat:@"%i", shopping];
+            NSString *string = [NSString stringWithFormat:@"%i", shopping];
+            [self updateText:string forLabel:shoppingLabel];
             
         }else if ([record[i][@"Category"] isEqualToString:@"General"]){
             // Calculate for General here
             
             general += [record[i][@"Amount"] intValue];
             UILabel *generalLabel = (UILabel *)[self viewWithTag:4];
-            generalLabel.text = [NSString stringWithFormat:@"%i", general];
+            NSString *string = [NSString stringWithFormat:@"%i", general];
+            [self updateText:string forLabel:generalLabel];
         }
     }
     
@@ -156,21 +160,27 @@
                       [NSNumber numberWithInt:general],nil];
     for (int r = 11; r < 15; r++) {
         UILabel *label = (UILabel *)[self viewWithTag:r];
+        NSString *string;
         switch (label.tag) {
             case 11:
-                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:food wihtThisSumOfArray:array]];
+                string = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:food wihtThisSumOfArray:array]];
+                [self updateText:string forLabel:label];
                 break;
             
             case 12:
-                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:train wihtThisSumOfArray:array]];
+                string = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:train wihtThisSumOfArray:array]];
+                [self updateText:string forLabel:label];
                 break;
                 
             case 13:
-                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:shopping wihtThisSumOfArray:array]];
+                string = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:shopping wihtThisSumOfArray:array]];
+                [self updateText:string forLabel:label];
                 break;
                 
             case 14:
-                label.text = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:general wihtThisSumOfArray:array]];
+                
+                string = [NSString stringWithFormat:@"%@%%", [self percentageOfthisValue:general wihtThisSumOfArray:array]];
+                [self updateText:string forLabel:label];
                 break;
             default:
                 break;
@@ -186,9 +196,18 @@
         sum += intNum;
     }
     
-    int result = (int)(value/sum*100);
+    int result = (int)round((value/sum*100));
     return [NSString stringWithFormat:@"%i", result];
     
+}
+
+- (void)updateText:(NSString *)text forLabel:(UILabel *)label{
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.5;
+    animation.type = kCATransitionFade;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [label.layer addAnimation:animation forKey:@"changeTextTransition"];
+    label.text = text;
 }
 
 @end
