@@ -35,6 +35,16 @@
     self.color = [UIColor colorWithRed:200/255.0 green:198/255.0 blue:210/255.0 alpha:1];
     self.userData = [[NSMutableArray alloc]init];
     
+    // Since our application only allow user to have 4 category, so we define it here
+    self.colorList = [[NSArray alloc]
+                      initWithObjects:
+                      [UIColor colorWithRed:254/255.0 green:197/255.0 blue:101/255.0 alpha:1.0], // Foods
+                      [UIColor colorWithRed:62/255.0 green:212/255.0 blue:197/255.0 alpha:1.0],  // Train
+                      [UIColor colorWithRed:175/255.0 green:171/255.0 blue:251/255.0 alpha:1.0], // Shop
+                      [UIColor colorWithRed:252/255.0 green:129/255.0 blue:130/255.0 alpha:1.0], // General
+                      nil];
+    
+    
     float rowHeight = self.frame.size.height/5;
     float categoryColWidth = self.frame.size.width/3;
     float valueColWidth = categoryColWidth;
@@ -61,16 +71,16 @@
         category.font = self.font;
         switch (i) {
             case 0:
-                category.textColor = [UIColor colorWithRed:254/255.0 green:197/255.0 blue:101/255.0 alpha:1.0];
+                category.textColor = self.colorList[i];
                 break;
             case 1:
-                category.textColor = [UIColor colorWithRed:62/255.0 green:212/255.0 blue:197/255.0 alpha:1.0];
+                category.textColor = self.colorList[i];
                 break;
             case 2:
-                category.textColor = [UIColor colorWithRed:175/255.0 green:171/255.0 blue:251/255.0 alpha:1.0];
+                category.textColor = self.colorList[i];
                 break;
             case 3:
-                category.textColor = [UIColor colorWithRed:252/255.0 green:129/255.0 blue:130/255.0 alpha:1.0];
+                category.textColor = self.colorList[i];
                 break;
                 
             default:

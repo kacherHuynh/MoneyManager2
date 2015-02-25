@@ -405,9 +405,9 @@ NSString * const DateField = @"Date";
 - (CGFloat)pieChart:(XYPieChart *)pieChart valueForSliceAtIndex:(NSUInteger)index{
     return [self.userDataView.userData[index] intValue];
 }
-//- (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index{
-//    
-//}//optional
+- (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index{
+    return self.userDataView.colorList[index];
+}
 //- (NSString *)pieChart:(XYPieChart *)pieChart textForSliceAtIndex:(NSUInteger)index{
 //    
 //}//optional

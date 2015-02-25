@@ -11,6 +11,7 @@
 @interface UserDataView : UIView
 
 @property (nonatomic) NSMutableArray *userData;
+@property (nonatomic) NSArray *colorList;
 @property (nonatomic) UIFont *font;
 - (void)refreshData:(NSArray *)record;
 
