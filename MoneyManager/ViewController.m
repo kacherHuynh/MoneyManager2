@@ -35,6 +35,7 @@ NSString * const DateField = @"Date";
 @property (nonatomic) SplittingTriangle *loadingView;
 @property (nonatomic) XYPieChart *chart;
 @property (nonatomic) UIButton *addButton;
+@property (nonatomic) BOOL isLoading;
 //@property (nonatomic) int foods,trains,shopping,general;
 //@property (nonatomic) float foodsRate,trainRate,shoppingRate,genralRate;
 
@@ -50,15 +51,15 @@ NSString * const DateField = @"Date";
 
     self.view.backgroundColor = [UIColor colorWithRed:64/255.0 green:62/255.0 blue:72/255.0 alpha:1.0];
     
-    // create loading view
-    self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
-                      andBackColor:[UIColor clearColor]];
-    self.loadingView.center = self.view.center;
-    self.loadingView.clockwise = YES;
-    self.loadingView.duration = 1.5;
-    self.loadingView.radius = 5;
-    self.loadingView.paused = NO;
+//    for (NSString* family in [UIFont familyNames])
+//    {
+//        NSLog(@"%@", family);
+//        
+//        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+//        {
+//            NSLog(@"  %@", name);
+//        }
+//    }
     
     // JUST FOR FUN
     
@@ -85,7 +86,6 @@ NSString * const DateField = @"Date";
     // Load GUI
 
     [self loadGUI];
-
 }
 
 
@@ -103,6 +103,7 @@ NSString * const DateField = @"Date";
     
     [self refreshUserDataView:self.userDataView];
     [self.view addSubview:self.userDataView];
+    [self checkForLoading];
 }
 
 - (void)loadChart{
@@ -120,26 +121,50 @@ NSString * const DateField = @"Date";
     }
 
     [self.view addSubview:self.chart];
+    [self checkForLoading];
 }
 
-- (void)showLoadingScreen{
-    if (self.loadingView.superview == nil) {
-        self.loadingView.alpha = 0;
-        [self.view addSubview:self.loadingView];
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            self.loadingView.alpha = 1.0;
-        }];
+- (void)checkForLoading{
+    
+    if (self.isLoading) {
+        [self.view bringSubviewToFront:self.loadingView];
     }
 }
 
-- (void)removeLoadingScreen{
+- (void)showLoadingScreen{
+
+    if (self.loadingView == nil) {
+        
+        // create loading view
+        self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
+                          andBackColor:[UIColor clearColor]];
+        // self.loadingView.center = self.view.center;
+        self.loadingView.clockwise = YES;
+        self.loadingView.duration = 1.5;
+        self.loadingView.radius = 5;
+        self.loadingView.paused = NO;
+    }
     
-    [UIView animateWithDuration:0.8 animations:^{
-        self.loadingView.alpha = 0;
-    }];
+    self.isLoading = YES;
+    
+    if (self.loadingView.superview == nil) {
+//        self.loadingView.alpha = 0;
+        [self.view addSubview:self.loadingView];
+//
+//        [UIView animateWithDuration:0.2 animations:^{
+//            self.loadingView.alpha = 1.0;
+//        }];
+    }
+}
+
+- (void)hideLoadingScreen{
+    
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.loadingView.alpha = 0;
+//    }];
     [self.loadingView removeFromSuperview];
-    
+    self.isLoading = NO;
 }
 
 - (void)addBlurEffect{
@@ -235,8 +260,10 @@ NSString * const DateField = @"Date";
 
     _container = [CKContainer defaultContainer];
     _publicData = [_container publicCloudDatabase];
-    BOOL __block finished = false;
     
+    // show loading screen
+    [self showLoadingScreen];
+
     // get UserID and pass to self.userID
     
     self.userID = [NSString stringWithFormat:@""];
@@ -245,16 +272,13 @@ NSString * const DateField = @"Date";
         if (error== nil) {
             NSLog(@"USER ID: %@", recordID.recordName);
             self.userID = [NSString stringWithFormat:@"%@", recordID.recordName];
-            finished = true;
         }else{
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
         }
     }];
     
-    while (!finished) {
-        NSLog(@"loading....");
-
-    }
+    // remove the loading screen
+    [self performSelector:@selector(hideLoadingScreen) withObject:self afterDelay:3];
 }
 
 
@@ -333,9 +357,6 @@ NSString * const DateField = @"Date";
             abort();
         }else{
             NSLog(@"ADDED SUCCESSFULY");
-
-            sleep(1); // to wait for data actually added to icloud
-            [self removeLoadingScreen];
         }
     }];
 }
@@ -387,7 +408,7 @@ NSString * const DateField = @"Date";
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self showCategry];
+
 }
 
 // DATA SOURCE FOR CHART

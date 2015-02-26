@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02AB17E01A9F1C5700EA29BE /* HighThinLIGHT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02AB17DF1A9F1B1D00EA29BE /* HighThinLIGHT.ttf */; };
 		02EF9A5C1A91E678007A2E83 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A5B1A91E678007A2E83 /* main.m */; };
 		02EF9A5F1A91E678007A2E83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A5E1A91E678007A2E83 /* AppDelegate.m */; };
 		02EF9A621A91E678007A2E83 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A611A91E678007A2E83 /* ViewController.m */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02AB17DF1A9F1B1D00EA29BE /* HighThinLIGHT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighThinLIGHT.ttf; sourceTree = "<group>"; };
 		02EF9A561A91E678007A2E83 /* MoneyManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02EF9A5A1A91E678007A2E83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02EF9A5B1A91E678007A2E83 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		02EF9A591A91E678007A2E83 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				02AB17DF1A9F1B1D00EA29BE /* HighThinLIGHT.ttf */,
 				02EF9A9A1A9B1B07007A2E83 /* Steinerlight.ttf */,
 				02EF9A981A9AFBB0007A2E83 /* Quicksand_Light.otf */,
 				02EF9A5A1A91E678007A2E83 /* Info.plist */,
@@ -262,6 +265,7 @@
 				02EF9A651A91E678007A2E83 /* Main.storyboard in Resources */,
 				02EF9A6A1A91E678007A2E83 /* LaunchScreen.xib in Resources */,
 				02EF9A671A91E678007A2E83 /* Images.xcassets in Resources */,
+				02AB17E01A9F1C5700EA29BE /* HighThinLIGHT.ttf in Resources */,
 				02EF9A9B1A9B1BDF007A2E83 /* Steinerlight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

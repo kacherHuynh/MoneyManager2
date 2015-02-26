@@ -51,17 +51,45 @@
     float rateColWidth = valueColWidth;
     
     // Create label for Title
-    MyLabel *title = [[MyLabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, rowHeight)];
-    title.text = @"OVERVIEW (this month)";
-    title.center = CGPointMake(self.center.x, rowHeight/2);
-    title.font = [UIFont fontWithName:@"QuicksandLight-Regular" size:24.0];
-    title.textColor = self.color;
+    
+//    MyLabel *title = [[MyLabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, rowHeight)];
+//    title.text = @"OVERVIEW (this month)";
+//    title.center = CGPointMake(self.center.x, rowHeight/2);
+//    title.font = [UIFont fontWithName:@"QuicksandLight-Regular" size:24.0];
+//    title.textColor = self.color;
+//    [self addSubview:title];
+    
+    // Title button uses for changing time interval
+    UIButton *title = [UIButton buttonWithType:UIButtonTypeCustom];
+    title.frame = CGRectMake(10, 0, self.frame.size.width* 0.75, rowHeight - 20);
+    title.backgroundColor = [UIColor colorWithRed:253/255.0 green:147/255.0 blue:100/255.0 alpha:1];
+    title.font = [UIFont fontWithName:@"HighThinLIGHT" size:20];
+    title.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    title.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    title.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    [title setTitle:@"OVERVIEW" forState:UIControlStateNormal];
     [self addSubview:title];
     
-    self.categoryList = [[NSArray alloc]initWithObjects:@"Foods", @"Train", @"Shopping", @"General", nil];
-    float x = title.frame.origin.x;
-    float y = title.frame.origin.y + rowHeight;
+    // Add button uses for inserting new payment record
+    CGSize addBtnSize = CGSizeMake(self.frame.size.width - title.frame.size.width - 30, title.frame.size.height);
     
+    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    addBtn.frame = CGRectMake(title.frame.origin.x + title.frame.size.width + 10,
+                              title.frame.origin.y,
+                              addBtnSize.width, addBtnSize.height);
+    addBtn.backgroundColor = [UIColor colorWithRed:100/255.0 green:197/255.0 blue:253/255.0 alpha:1];
+    addBtn.font = [UIFont fontWithName:@"HighThinLIGHT" size:25];
+    addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    addBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
+    [addBtn setTitle:@"+" forState:UIControlStateNormal];
+    
+    [self addSubview:addBtn];
+    // ----- DONE FOR TITLE
+    rowHeight = (self.frame.size.height - title.frame.size.height) /4;
+    
+    self.categoryList = [[NSArray alloc]initWithObjects:@"Foods", @"Train", @"Shopping", @"General", nil];
+    float x = 0;
+    float y = title.frame.origin.y + title.frame.size.height;
     for (int i = 0; i < self.categoryList.count; i++) {
         
         // Create categories
@@ -69,6 +97,7 @@
         MyLabel *category = [[MyLabel alloc]initWithFrame:CGRectMake(x, y, categoryColWidth, rowHeight)];
         category.text = [NSString stringWithFormat:@"%@", self.categoryList[i]];
         category.font = self.font;
+
         switch (i) {
             case 0:
                 category.textColor = self.colorList[i];
