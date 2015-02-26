@@ -45,7 +45,7 @@ NSString * const DateField = @"Date";
 
 - (void)loadView{
     [super loadView];
-
+ 
     // add imageview as a background
 
     self.view.backgroundColor = [UIColor colorWithRed:64/255.0 green:62/255.0 blue:72/255.0 alpha:1.0];
@@ -71,23 +71,20 @@ NSString * const DateField = @"Date";
 //    self.loadingView.radius = 30;
 //    self.loadingView.paused = NO;
 //    [self.view addSubview:self.loadingView];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-
-    
     // Init CK
     [self initCloudKit];
     [self loadUserCategoryList];
     
     // Load GUI
 
-    
     [self loadGUI];
-
 
 }
 
@@ -98,14 +95,6 @@ NSString * const DateField = @"Date";
     [self loadUserData];
     [self loadChart];
     
-    // Add button
-    self.addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addButton.frame = CGRectMake(self.view.frame.size.width - 50, 0 , 50, 50);
-    self.addButton.font = [UIFont fontWithName:self.userDataView.font.fontName size:50];
-    [self.addButton addTarget:self action:@selector(showCategry) forControlEvents:UIControlEventTouchUpInside];
-    [self.addButton setTitle:@"+" forState:UIControlStateNormal];
-    self.addButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    [self.view addSubview:self.addButton];
 }
 
 - (void)loadUserData{
@@ -129,8 +118,6 @@ NSString * const DateField = @"Date";
         [self.chart setDataSource:self];
         [self.chart setDelegate:self];
     }
-    
-
 
     [self.view addSubview:self.chart];
 }
@@ -138,7 +125,7 @@ NSString * const DateField = @"Date";
 - (void)showLoadingScreen{
     if (self.loadingView.superview == nil) {
         self.loadingView.alpha = 0;
-        [self.view insertSubview:self.loadingView aboveSubview:self.chart];
+        [self.view addSubview:self.loadingView];
         
         [UIView animateWithDuration:0.2 animations:^{
             self.loadingView.alpha = 1.0;
@@ -201,11 +188,6 @@ NSString * const DateField = @"Date";
 
 #pragma mark PREPARE DATA
 
-- (void)getCategoryListWithCompletionHandler:(void (^)(BOOL finished))completionHandler{
-    
-
-}
-
 - (void)loadUserCategoryList{
     if (self.userCategory == nil) {
         self.userCategory = [[NSMutableArray alloc]init];
@@ -213,6 +195,7 @@ NSString * const DateField = @"Date";
     // get category list from icloud
     
     [self fetchCategoryByUserId:self.userID completionHandler:^(NSArray *records) {
+        
         if (self.userCategory.count < records.count) {
             for (int i = (int)self.userCategory.count; i<records.count; i++) {
                 [self.userCategory addObject:records[i][CategoryField]];
@@ -220,8 +203,6 @@ NSString * const DateField = @"Date";
         }
     }];
 }
-
-
 
 - (void)refreshUserDataView:(UserDataView *)view{
     [self fetchDataByUserId:self.userID completionHandler:^(NSArray *record) {
@@ -269,10 +250,10 @@ NSString * const DateField = @"Date";
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
         }
     }];
+    
     while (!finished) {
         NSLog(@"loading....");
-        
-        
+
     }
 }
 
@@ -355,7 +336,6 @@ NSString * const DateField = @"Date";
 
             sleep(1); // to wait for data actually added to icloud
             [self removeLoadingScreen];
-
         }
     }];
 }
@@ -377,6 +357,7 @@ NSString * const DateField = @"Date";
             NSLog(@"ADDED SUCCESSFULY");
         }
     }];
+    
     // update category list
     [self loadUserCategoryList];
 }
@@ -399,9 +380,6 @@ NSString * const DateField = @"Date";
         [self addRecoreWithAmount:value forCategory:self.userCategory[index]];
         
     }
-    
-    // remove blur effect
-
 }
 
 - (void)menuwillDismiss:(CTPopoutMenu *)menu{
@@ -409,7 +387,7 @@ NSString * const DateField = @"Date";
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-
+    [self showCategry];
 }
 
 // DATA SOURCE FOR CHART
@@ -423,8 +401,44 @@ NSString * const DateField = @"Date";
 - (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index{
     return self.userDataView.colorList[index];
 }
-//- (NSString *)pieChart:(XYPieChart *)pieChart textForSliceAtIndex:(NSUInteger)index{
-//    
-//}//optional
+- (NSString *)pieChart:(XYPieChart *)pieChart textForSliceAtIndex:(NSUInteger)index{
+    return @"LOG";
+}//optional
+
+
+- (void)deleteCategoryByUserId:(NSString *)userId completionHandler:(void (^)(NSArray *records))completionHandler{
+    
+    // Note: This feature is only used for debugging.
+    
+    NSPredicate *condition = [NSPredicate predicateWithFormat:@"%K == %@",UserIDField, self.userID];
+    
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:UserCategoryRecordType predicate:condition];
+    
+    CKQueryOperation *queryOperation = [[CKQueryOperation alloc]initWithQuery:query];
+    
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    
+    [queryOperation setRecordFetchedBlock:^(CKRecord *record) {
+        [self.publicData deleteRecordWithID:record.recordID completionHandler:^(CKRecordID *recordID, NSError *error) {
+            NSLog(@"DELETED");
+        }];
+    }];
+    
+    queryOperation.queryCompletionBlock = ^(CKQueryCursor *cursor, NSError *error) {
+        if (error) {
+            // In your app, handle this error with such perfection that your users will never realize an error occurred.
+            NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
+            abort();
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                completionHandler(results);
+            });
+        }
+    };
+    
+    [self.publicData addOperation:queryOperation];
+    
+}
+
 
 @end
