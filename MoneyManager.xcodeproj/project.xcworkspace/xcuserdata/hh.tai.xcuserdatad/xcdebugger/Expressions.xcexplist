@@ -11,18 +11,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ViewController loadChart]:ViewController.m">
+         contextName = "__29-[ViewController showCategry]_block_invoke:ViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.userDataView">
+               value = "self.userCategory">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ViewController numberOfSlicesInPieChart:]:ViewController.m">
+         contextName = "-[ViewController getUserID]:ViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.userDataView">
+               value = "self.userID">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -74,26 +74,34 @@
          contextName = "-[UserDataView refreshData:]:UserDataView.m">
       </ContextState>
       <ContextState
+         contextName = "-[UserDataView customInit]:UserDataView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "calendarIcon.size.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController loadChart]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userDataView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController numberOfSlicesInPieChart:]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.userDataView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[ViewController showCategry]:ViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "self.userCategory">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "__29-[ViewController showCategry]_block_invoke:ViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.userCategory">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[ViewController getUserID]:ViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.userID">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -8,6 +8,7 @@
 
 #import "UserDataView.h"
 #import "MyLabel.h"
+#import <CoreText/CoreText.h>
 
 @interface UserDataView()
 
@@ -67,7 +68,22 @@
     title.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     title.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     title.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-    [title setTitle:@"OVERVIEW" forState:UIControlStateNormal];
+    
+    // create attributed string for title
+    NSString *titleString = [NSString stringWithFormat:@"OVERVIEW"];
+    NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc]initWithString:titleString];
+    [attributedTitle addAttribute:NSKernAttributeName value:@(8.0) range:NSMakeRange(0, attributedTitle.length)];
+    [attributedTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attributedTitle.length)];
+    [title setAttributedTitle:attributedTitle forState:UIControlStateNormal];
+    
+    // Add calendar icon
+    UIImage *calendarIcon = [UIImage imageNamed:@"calendarIcon"];
+    UIImageView *iconView = [[UIImageView alloc]initWithFrame:CGRectMake(title.frame.size.width - calendarIcon.size.width/2 - 10,
+                                                                         (title.frame.size.height - calendarIcon.size.height/2) / 2,
+                                                                         calendarIcon.size.width/2, calendarIcon.size.height/2)];
+    iconView.image = calendarIcon;
+    [title addSubview:iconView];
+
     [self addSubview:title];
     
     // Add button uses for inserting new payment record
@@ -82,6 +98,9 @@
     addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     addBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
     [addBtn setTitle:@"+" forState:UIControlStateNormal];
+    
+    // TO DO: add target method for add btn
+    
     
     [self addSubview:addBtn];
     // ----- DONE FOR TITLE

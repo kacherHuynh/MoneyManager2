@@ -100,7 +100,6 @@ NSString * const DateField = @"Date";
 - (void)loadUserData{
     
     self.userDataView = [[UserDataView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
-    
     [self refreshUserDataView:self.userDataView];
     [self.view addSubview:self.userDataView];
     [self checkForLoading];
@@ -147,24 +146,20 @@ NSString * const DateField = @"Date";
     }
     
     self.isLoading = YES;
-    
+    self.loadingView.alpha = 1.0;
     if (self.loadingView.superview == nil) {
-//        self.loadingView.alpha = 0;
         [self.view addSubview:self.loadingView];
-//
-//        [UIView animateWithDuration:0.2 animations:^{
-//            self.loadingView.alpha = 1.0;
-//        }];
     }
 }
 
 - (void)hideLoadingScreen{
     
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.loadingView.alpha = 0;
-//    }];
-    [self.loadingView removeFromSuperview];
-    self.isLoading = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.loadingView.alpha = 0;
+        
+        self.isLoading = NO;
+    }];
+
 }
 
 - (void)addBlurEffect{
@@ -272,13 +267,19 @@ NSString * const DateField = @"Date";
         if (error== nil) {
             NSLog(@"USER ID: %@", recordID.recordName);
             self.userID = [NSString stringWithFormat:@"%@", recordID.recordName];
+            
+            // when we have the UID, finished loading -> we will hide loading screen, but notice that, we need to do it on main thread
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideLoadingScreen];
+            });
+            
         }else{
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
         }
     }];
     
     // remove the loading screen
-    [self performSelector:@selector(hideLoadingScreen) withObject:self afterDelay:3];
+
 }
 
 
@@ -408,7 +409,7 @@ NSString * const DateField = @"Date";
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-
+    
 }
 
 // DATA SOURCE FOR CHART
