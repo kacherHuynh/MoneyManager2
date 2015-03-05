@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 
-@interface AddingView : UIView
+@interface AddingView : UIView <UIAlertViewDelegate>
 @property (nonatomic) NSArray *categoryList;
 @property (nonatomic) ViewController *mainView;
 

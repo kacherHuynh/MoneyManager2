@@ -187,8 +187,7 @@ typedef enum {
                 [self updateText:[self deleteString:self.displayLabel.text] forLabel:self.displayLabel];
                 break;
             case 11: // OK button
-                [self.mainView okayBtnPressedWithValue:self.displayLabel.text forCategory:self.category];
-                self.displayLabel.text = @"0";
+                [self comfirmForOkayBtn];
                 break;
             case 14: // . button
                 [self updateText:[self updateStringWithDot:self.displayLabel.text] forLabel:self.displayLabel] ;
@@ -260,6 +259,26 @@ typedef enum {
         if (point.y < self.topPt || point.y > self.bottomPt) {
             [self removeFromSuperview];
         }
+    }
+}
+
+- (void)comfirmForOkayBtn{
+    NSString *message = [NSString stringWithFormat:@"You have just spent %@ for %@.",
+                         self.displayLabel.text, self.category];
+    UIAlertView *alert;
+    if (!self.category) {
+         alert = [[UIAlertView alloc]initWithTitle:@"Opps..! Category is missing!" message:nil delegate:nil cancelButtonTitle:@"I got it!" otherButtonTitles:nil, nil];
+    }else{
+        alert = [[UIAlertView alloc]initWithTitle:@"Are you sure?" message:message delegate:nil cancelButtonTitle:@"Wait" otherButtonTitles:@"Sure", nil];
+    }
+    alert.delegate = self;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex ==1) {
+        [self.mainView okayBtnPressedWithValue:self.displayLabel.text forCategory:self.category];
+        self.displayLabel.text = @"0";
     }
 }
 
