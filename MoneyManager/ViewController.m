@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "QuartzCore/QuartzCore.h"
-#import "CTPopOutMenu.h"
 #import "UserDataView.h"
 #import "SplittingTriangle.h"
 #import "XYPieChart.h"
@@ -52,29 +51,6 @@ NSString * const DateField = @"Date";
     // add imageview as a background
 
     self.view.backgroundColor = [UIColor colorWithRed:64/255.0 green:62/255.0 blue:72/255.0 alpha:1.0];
-    
-//    for (NSString* family in [UIFont familyNames])
-//    {
-//        NSLog(@"%@", family);
-//        
-//        for (NSString* name in [UIFont fontNamesForFamilyName: family])
-//        {
-//            NSLog(@"  %@", name);
-//        }
-//    }
-    
-    // JUST FOR FUN
-    
-//    self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];
-//    [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
-//                      andBackColor:[UIColor clearColor]];
-//    self.loadingView.center = CGPointMake(self.view.center.x, self.view.center.y/2);
-//    self.loadingView.clockwise = YES;
-//    self.loadingView.duration = 1.5;
-//    self.loadingView.radius = 30;
-//    self.loadingView.paused = NO;
-//    [self.view addSubview:self.loadingView];
-
 }
 
 - (void)viewDidLoad {
@@ -88,6 +64,7 @@ NSString * const DateField = @"Date";
     // Load GUI
 
     [self loadGUI];
+
 }
 
 
@@ -96,7 +73,6 @@ NSString * const DateField = @"Date";
 - (void)loadGUI{
     [self loadUserData];
     [self loadChart];
-    
 }
 
 - (void)loadUserData{
@@ -124,6 +100,7 @@ NSString * const DateField = @"Date";
 
     [self.view addSubview:self.chart];
     [self checkForLoading];
+    [self.chart reloadData];
 }
 
 - (void)checkForLoading{
@@ -245,24 +222,6 @@ NSString * const DateField = @"Date";
     }];
 }
 
-- (void)showCategry{
-
-    // get list and add item for category menu
-    [self loadUserCategoryList];
-    NSMutableArray *arr = [[NSMutableArray alloc]init];
-    for (int m = 0; m < self.userCategory.count; m++) {
-        CTPopoutMenuItem *item = [[CTPopoutMenuItem alloc]
-                                  initWithTitle:self.userCategory[m]
-                                  image:[UIImage imageNamed:@"pic5"]];
-        
-        [arr addObject:item];
-    }
-    CTPopoutMenu * menu = [[CTPopoutMenu alloc]initWithTitle:@"HOW MUCH DO YOU SPEND?" message:@"YOU" items:arr];
-    menu.menuStyle = MenuStyleGrid;
-    menu.delegate = self;
-    menu.view.alpha = 0.8;
-    [menu showMenuInParentViewController:self withCenter:self.view.center];
-}
 
 
 - (void)initCloudKit{
@@ -285,18 +244,15 @@ NSString * const DateField = @"Date";
             // when we have the UID, finished loading -> we will hide loading screen, but notice that, we need to do it on main thread
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self hideLoadingScreen];
+                // We only can load data after we have UID so here we will load chart base on User Data
+                [self refreshUserDataView:self.userDataView];
             });
             
         }else{
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
         }
     }];
-    
-    // remove the loading screen
-
 }
-
-
 - (void)fetchDataByUserId:(NSString *)userId completionHandler:(void (^)(NSArray *record))completionHander {
     NSPredicate *condition = [NSPredicate predicateWithFormat:@"%K == %@",UserIDField, self.userID];
     
@@ -359,6 +315,8 @@ NSString * const DateField = @"Date";
 
 - (void)addRecoreWithAmount:(NSString *)amount forCategory:(NSString *)category{
     
+    [self showLoadingScreen];
+    
     CKRecord *record = [[CKRecord alloc]initWithRecordType:UserRecordType];
     record[AmountField] = amount;
     record[CategoryField] = category;
@@ -372,6 +330,11 @@ NSString * const DateField = @"Date";
             abort();
         }else{
             NSLog(@"ADDED SUCCESSFULY");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                sleep(1);
+                [self hideLoadingScreen];
+                [self refreshUserDataView:self.userDataView];
+            });
         }
     }];
 }
@@ -406,8 +369,10 @@ NSString * const DateField = @"Date";
     [self.view addSubview:self.addingView];
 }
 
-- (void)okayBtnPressedFromAddingView{
+- (void)okayBtnPressedWithValue:(NSString *)value forCategory:(NSString *)category{
     [self.addingView removeFromSuperview];
+    NSLog(@"Value: %@ and Category: %@",value,category);
+    [self addRecoreWithAmount:value forCategory:category];
 }
 
 #pragma mark DELEGATE 
@@ -419,19 +384,6 @@ NSString * const DateField = @"Date";
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-}
-
-- (void)menu:(CTPopoutMenu *)menu willDismissWithSelectedItemAtIndex:(NSUInteger)index andValue:(NSString *)value{
-    
-    // check the value, if not null add it to iCloud
-    if (![value isEqualToString:@""]) {
-        [self addRecoreWithAmount:value forCategory:self.userCategory[index]];
-        
-    }
-}
-
-- (void)menuwillDismiss:(CTPopoutMenu *)menu{
-
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -487,6 +439,5 @@ NSString * const DateField = @"Date";
     [self.publicData addOperation:queryOperation];
     
 }
-
 
 @end

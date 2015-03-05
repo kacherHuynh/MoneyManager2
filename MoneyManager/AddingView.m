@@ -22,6 +22,8 @@ typedef enum {
 
 @interface AddingView()
 @property (nonatomic) UILabel *displayLabel;
+@property (nonatomic) NSString *category;
+@property float topPt, bottomPt;
 
 @end
 
@@ -57,6 +59,8 @@ typedef enum {
         // Custom init here
         float btnSize = (frame.size.width - (padding * 3))/5;
         float offsetY = (frame.size.height - (btnSize * rowNum + padding*4)) /2;
+        // we need to store this number to use for removing view by touching out side of button
+        self.topPt = offsetY;
         float offsetX = btnSize/2;
         
         // Create display label
@@ -160,6 +164,7 @@ typedef enum {
             offsetX = btnSize/2;
             offsetY = offsetY + padding + btnSize;
         }
+        self.bottomPt = offsetY;
     }
     return self;
 }
@@ -179,6 +184,7 @@ typedef enum {
         }
         // Handle action for button
         [btn showUnderLine];
+        self.category = btn.titleLabel.text;
         
     }else{
         
@@ -191,7 +197,7 @@ typedef enum {
                 [self updateText:[self deleteString:self.displayLabel.text] forLabel:self.displayLabel];
                 break;
             case 11: // OK button
-                [self.mainView okayBtnPressedFromAddingView];
+                [self.mainView okayBtnPressedWithValue:self.displayLabel.text forCategory:self.category];
                 self.displayLabel.text = @"0";
                 break;
             case 14: // . button
@@ -236,8 +242,6 @@ typedef enum {
     
     NSUInteger len = [string length];
     unichar buffer[len+1];
-    BOOL exist = NO;
-    NSString *dot = [NSString stringWithFormat:@"."];
     [string getCharacters:buffer range:NSMakeRange(0, len)];
 
     for(int i = 0; i < len; i++) {
@@ -258,6 +262,15 @@ typedef enum {
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [label.layer addAnimation:animation forKey:@"changeTextTransition"];
     label.text = text;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    for (UITouch *touch in touches) {
+        CGPoint point = [touch locationInView:self];
+        if (point.y < self.topPt || point.y > self.bottomPt) {
+            [self removeFromSuperview];
+        }
+    }
 }
 
 @end

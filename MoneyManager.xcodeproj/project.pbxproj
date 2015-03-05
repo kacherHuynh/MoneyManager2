@@ -18,7 +18,6 @@
 		02EF9A6A1A91E678007A2E83 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A681A91E678007A2E83 /* LaunchScreen.xib */; };
 		02EF9A761A91E678007A2E83 /* MoneyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A751A91E678007A2E83 /* MoneyManagerTests.m */; };
 		02EF9A811A92E4AD007A2E83 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EF9A801A92E4AD007A2E83 /* CloudKit.framework */; };
-		02EF9A891A96EC14007A2E83 /* CTPopOutMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */; };
 		02EF9A941A9AED67007A2E83 /* UserDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A931A9AED67007A2E83 /* UserDataView.m */; };
 		02EF9A971A9AFA70007A2E83 /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A961A9AFA70007A2E83 /* MyLabel.m */; };
 		02EF9A991A9AFBB4007A2E83 /* Quicksand_Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 02EF9A981A9AFBB0007A2E83 /* Quicksand_Light.otf */; };
@@ -58,8 +57,6 @@
 		02EF9A751A91E678007A2E83 /* MoneyManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoneyManagerTests.m; sourceTree = "<group>"; };
 		02EF9A7F1A91E6A3007A2E83 /* MoneyManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MoneyManager.entitlements; sourceTree = "<group>"; };
 		02EF9A801A92E4AD007A2E83 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		02EF9A871A96EC14007A2E83 /* CTPopOutMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTPopOutMenu.h; sourceTree = "<group>"; };
-		02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTPopOutMenu.m; sourceTree = "<group>"; };
 		02EF9A921A9AED67007A2E83 /* UserDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataView.h; sourceTree = "<group>"; };
 		02EF9A931A9AED67007A2E83 /* UserDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataView.m; sourceTree = "<group>"; };
 		02EF9A951A9AFA70007A2E83 /* MyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLabel.h; sourceTree = "<group>"; };
@@ -162,8 +159,6 @@
 			children = (
 				02EF9AB51A9D756D007A2E83 /* XYPieChart.h */,
 				02EF9AB61A9D756D007A2E83 /* XYPieChart.m */,
-				02EF9A871A96EC14007A2E83 /* CTPopOutMenu.h */,
-				02EF9A881A96EC14007A2E83 /* CTPopOutMenu.m */,
 				02EF9AAB1A9C4ECA007A2E83 /* SplittingTriangle.h */,
 				02EF9AAC1A9C4ECA007A2E83 /* SplittingTriangle.m */,
 			);
@@ -297,7 +292,6 @@
 				02EF9AB71A9D756D007A2E83 /* XYPieChart.m in Sources */,
 				02EF9AAD1A9C4ECA007A2E83 /* SplittingTriangle.m in Sources */,
 				02EF9A971A9AFA70007A2E83 /* MyLabel.m in Sources */,
-				02EF9A891A96EC14007A2E83 /* CTPopOutMenu.m in Sources */,
 				02DCAA501AA6BC990004C33B /* AddingView.m in Sources */,
 				02EF9A621A91E678007A2E83 /* ViewController.m in Sources */,
 				02EF9A5F1A91E678007A2E83 /* AppDelegate.m in Sources */,

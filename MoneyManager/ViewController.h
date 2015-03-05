@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CTPopOutMenu.h"
 #import "XYPieChart.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate,CTPopoutMenuDelegate, XYPieChartDelegate, XYPieChartDataSource>
+@interface ViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, XYPieChartDelegate, XYPieChartDataSource>
 
 - (void)showAddingView;
-- (void)okayBtnPressedFromAddingView;
+- (void)okayBtnPressedWithValue:(NSString *)value forCategory:(NSString *)category;
 @end
 
