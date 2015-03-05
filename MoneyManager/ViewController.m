@@ -134,7 +134,9 @@ NSString * const DateField = @"Date";
 }
 
 - (void)showLoadingScreen{
-
+    
+    self.view.userInteractionEnabled = NO;
+    
     if (self.loadingView == nil) {
         
         // create loading view
@@ -156,6 +158,8 @@ NSString * const DateField = @"Date";
 }
 
 - (void)hideLoadingScreen{
+    
+    self.view.userInteractionEnabled = YES;
     
     [UIView animateWithDuration:0.5 animations:^{
         self.loadingView.alpha = 0;
@@ -400,6 +404,10 @@ NSString * const DateField = @"Date";
         self.addingView.mainView = self;
     }
     [self.view addSubview:self.addingView];
+}
+
+- (void)okayBtnPressedFromAddingView{
+    [self.addingView removeFromSuperview];
 }
 
 #pragma mark DELEGATE 

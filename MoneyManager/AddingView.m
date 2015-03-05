@@ -191,7 +191,8 @@ typedef enum {
                 [self updateText:[self deleteString:self.displayLabel.text] forLabel:self.displayLabel];
                 break;
             case 11: // OK button
-                
+                [self.mainView okayBtnPressedFromAddingView];
+                self.displayLabel.text = @"0";
                 break;
             case 14: // . button
                 [self updateText:[self updateStringWithDot:self.displayLabel.text] forLabel:self.displayLabel] ;
