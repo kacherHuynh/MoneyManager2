@@ -67,7 +67,7 @@ typedef enum {
         [self addSubview:displayLabel];
         
         // Create Category 
-        offsetY = offsetY + btnSize * 1.5;
+        offsetY = offsetY + btnSize * 1;
         
         for (int i = 0; i < 4; i++) {
             MyButton *btn = [[MyButton alloc]initWithFrame:CGRectMake(offsetX, offsetY, btnSize, btnSize/2)];
@@ -85,8 +85,7 @@ typedef enum {
             // Create line below Btn
             UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0,btn.frame.size.height*0.75, btn.frame.size.width, btn.frame.size.height/20)];
             label.backgroundColor = colorList[i];
-            btn.underLine = label;
-            [btn setUnderLine];
+            [btn addUnderLine:label];
         
             switch (i) {
                 case 0:
@@ -119,6 +118,8 @@ typedef enum {
         
         for (int i = 0; i < 4; i++) {
             for (int r = 0; r < 4; r ++) {
+                
+                // If button is OK, set bigger size for it
                 if (index == 11) {
                     tempHeight = btnSize*2 + padding;
                 }else{
@@ -131,6 +132,14 @@ typedef enum {
 //                btn.tag = index;
                 [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:btn];
+                
+                // If button is OK, set border for it
+                if (index == 11) {
+                    [btn setBorderColor:[UIColor colorWithRed:252/255.0 green:129/255.0 blue:130/255.0 alpha:0.5]];
+                }else{
+                    [btn setBorderColor:[UIColor colorWithRed:200/255.0 green:198/255.0 blue:210/255.0 alpha:0.5]];
+                }
+                
                 
                 // Update index and offset for X
                 offsetX = offsetX + padding + btnSize;
@@ -154,20 +163,22 @@ typedef enum {
 - (void)btnPressed:(id)sender{
 
     MyButton *btn = (MyButton *)sender;
-    NSLog(@"%@", btn.titleLabel.text);
+
     if (btn.tag > 0) {
         
+        // Remove the current underline
         for (MyButton *subview in self.subviews)
         {
             if (subview.tag > 0) {
-                NSLog(@"%i", subview.tag);
-                subview.underLine.hidden = YES;
+                [subview hideUnderLine];
             }
         }
-        btn.underLine.hidden = NO;
-    }
-    
-
+        // Handle action for button
+        [btn showUnderLine];
+        NSLog(@"Current Category is: %@", btn.titleLabel.text);
+    }else{
+        
+    } 
 }
 
 @end

@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface MyButton : UIButton
-@property (nonatomic) UILabel *underLine;
-- (void)setUnderLine;
+
+- (void)addUnderLine:(UILabel *)underLine;
+- (void)setBorderColor:(UIColor *)color;
+- (void)hideUnderLine;
+- (void)showUnderLine;
+
 @end
