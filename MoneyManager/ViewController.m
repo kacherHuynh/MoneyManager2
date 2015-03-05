@@ -12,6 +12,7 @@
 #import "UserDataView.h"
 #import "SplittingTriangle.h"
 #import "XYPieChart.h"
+#import "AddingView.h"
 
 @import CloudKit;
 
@@ -34,6 +35,7 @@ NSString * const DateField = @"Date";
 @property (nonatomic) UserDataView *userDataView;
 @property (nonatomic) SplittingTriangle *loadingView;
 @property (nonatomic) XYPieChart *chart;
+@property (nonatomic) AddingView *addingView;
 @property (nonatomic) UIButton *addButton;
 @property (nonatomic) BOOL isLoading;
 //@property (nonatomic) int foods,trains,shopping,general;
@@ -100,6 +102,7 @@ NSString * const DateField = @"Date";
 - (void)loadUserData{
     
     self.userDataView = [[UserDataView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
+    self.userDataView.mainView = self;
     [self refreshUserDataView:self.userDataView];
     [self.view addSubview:self.userDataView];
     [self checkForLoading];
@@ -220,6 +223,13 @@ NSString * const DateField = @"Date";
             for (int i = (int)self.userCategory.count; i<records.count; i++) {
                 [self.userCategory addObject:records[i][CategoryField]];
             }
+        }
+        
+        if (self.userCategory.count == 0) {
+            [self.userCategory addObject:[NSString stringWithFormat:@"Foods"]];
+            [self.userCategory addObject:[NSString stringWithFormat:@"Train"]];
+            [self.userCategory addObject:[NSString stringWithFormat:@"Shopping"]];
+            [self.userCategory addObject:[NSString stringWithFormat:@"General"]];
         }
     }];
 }
@@ -382,6 +392,13 @@ NSString * const DateField = @"Date";
     
     // update category list
     [self loadUserCategoryList];
+}
+
+- (void)showAddingView{
+    if (self.addingView == nil) {
+        self.addingView = [[AddingView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) withCategoryList:self.userCategory];
+    }
+    [self.view addSubview:self.addingView];
 }
 
 #pragma mark DELEGATE 

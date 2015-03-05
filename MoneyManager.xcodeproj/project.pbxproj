@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0262BCF81AA6FBF900640B92 /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0262BCF71AA6FBF900640B92 /* MyButton.m */; };
 		02AB17E01A9F1C5700EA29BE /* HighThinLIGHT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02AB17DF1A9F1B1D00EA29BE /* HighThinLIGHT.ttf */; };
+		02DCAA501AA6BC990004C33B /* AddingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DCAA4F1AA6BC990004C33B /* AddingView.m */; };
 		02EF9A5C1A91E678007A2E83 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A5B1A91E678007A2E83 /* main.m */; };
 		02EF9A5F1A91E678007A2E83 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A5E1A91E678007A2E83 /* AppDelegate.m */; };
 		02EF9A621A91E678007A2E83 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02EF9A611A91E678007A2E83 /* ViewController.m */; };
@@ -36,7 +38,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0262BCF61AA6FBF900640B92 /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButton.h; sourceTree = "<group>"; };
+		0262BCF71AA6FBF900640B92 /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyButton.m; sourceTree = "<group>"; };
 		02AB17DF1A9F1B1D00EA29BE /* HighThinLIGHT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighThinLIGHT.ttf; sourceTree = "<group>"; };
+		02DCAA4E1AA6BC990004C33B /* AddingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddingView.h; sourceTree = "<group>"; };
+		02DCAA4F1AA6BC990004C33B /* AddingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddingView.m; sourceTree = "<group>"; };
 		02EF9A561A91E678007A2E83 /* MoneyManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02EF9A5A1A91E678007A2E83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02EF9A5B1A91E678007A2E83 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -169,6 +175,10 @@
 			children = (
 				02EF9A921A9AED67007A2E83 /* UserDataView.h */,
 				02EF9A931A9AED67007A2E83 /* UserDataView.m */,
+				02DCAA4E1AA6BC990004C33B /* AddingView.h */,
+				02DCAA4F1AA6BC990004C33B /* AddingView.m */,
+				0262BCF61AA6FBF900640B92 /* MyButton.h */,
+				0262BCF71AA6FBF900640B92 /* MyButton.m */,
 				02EF9A951A9AFA70007A2E83 /* MyLabel.h */,
 				02EF9A961A9AFA70007A2E83 /* MyLabel.m */,
 			);
@@ -288,10 +298,12 @@
 				02EF9AAD1A9C4ECA007A2E83 /* SplittingTriangle.m in Sources */,
 				02EF9A971A9AFA70007A2E83 /* MyLabel.m in Sources */,
 				02EF9A891A96EC14007A2E83 /* CTPopOutMenu.m in Sources */,
+				02DCAA501AA6BC990004C33B /* AddingView.m in Sources */,
 				02EF9A621A91E678007A2E83 /* ViewController.m in Sources */,
 				02EF9A5F1A91E678007A2E83 /* AppDelegate.m in Sources */,
 				02EF9A941A9AED67007A2E83 /* UserDataView.m in Sources */,
 				02EF9A5C1A91E678007A2E83 /* main.m in Sources */,
+				0262BCF81AA6FBF900640B92 /* MyButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,12 +428,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MoneyManager/MoneyManager.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = MoneyManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2a2d64b1-c2fa-48cb-9fad-a5ebf98385ec";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -431,12 +444,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MoneyManager/MoneyManager.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = MoneyManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2a2d64b1-c2fa-48cb-9fad-a5ebf98385ec";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

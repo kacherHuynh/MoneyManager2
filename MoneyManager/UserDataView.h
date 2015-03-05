@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MyLabel.h"
+#import "ViewController.h"
 @interface UserDataView : UIView
 
 @property (nonatomic) NSMutableArray *userData;
 @property (nonatomic) NSArray *colorList;
 @property (nonatomic) UIFont *font;
+@property (nonatomic) ViewController *mainView;
 - (void)refreshData:(NSArray *)record;
-
 @end

@@ -98,7 +98,7 @@
     addBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     addBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
     [addBtn setTitle:@"+" forState:UIControlStateNormal];
-    
+    [addBtn addTarget:self action:@selector(addBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     // TO DO: add target method for add btn
     
     
@@ -272,6 +272,10 @@
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [label.layer addAnimation:animation forKey:@"changeTextTransition"];
     label.text = text;
+}
+
+- (void)addBtnPressed{
+    [self.mainView showAddingView];
 }
 
 @end

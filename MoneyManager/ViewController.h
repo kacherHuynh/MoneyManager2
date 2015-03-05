@@ -12,6 +12,6 @@
 
 @interface ViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate,CTPopoutMenuDelegate, XYPieChartDelegate, XYPieChartDataSource>
 
-
+-(void)showAddingView;
 @end
 
