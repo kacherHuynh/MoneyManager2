@@ -397,6 +397,7 @@ NSString * const DateField = @"Date";
 - (void)showAddingView{
     if (self.addingView == nil) {
         self.addingView = [[AddingView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) withCategoryList:self.userCategory];
+        self.addingView.mainView = self;
     }
     [self.view addSubview:self.addingView];
 }

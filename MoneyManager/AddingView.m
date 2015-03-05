@@ -20,6 +20,10 @@ typedef enum {
     kGeneral
 } Category;
 
+@interface AddingView()
+@property (nonatomic) UILabel *displayLabel;
+
+@end
 
 @implementation AddingView
 
@@ -56,15 +60,15 @@ typedef enum {
         float offsetX = btnSize/2;
         
         // Create display label
-        UILabel * displayLabel = [[UILabel alloc]initWithFrame:CGRectMake(offsetX, offsetY, btnSize * 4 + padding * 3, btnSize)];
-        displayLabel.text = @"0";
-        displayLabel.font = font;
-        displayLabel.textColor = color;
-        displayLabel.textAlignment = NSTextAlignmentRight;
+        self.displayLabel = [[UILabel alloc]initWithFrame:CGRectMake(offsetX, offsetY, btnSize * 4 + padding * 3, btnSize)];
+        self.displayLabel.text = @"0";
+        self.displayLabel.font = font;
+        self.displayLabel.textColor = color;
+        self.displayLabel.textAlignment = NSTextAlignmentRight;
         
         //displayLabel.backgroundColor = [UIColor redColor];
         
-        [self addSubview:displayLabel];
+        [self addSubview:self.displayLabel];
         
         // Create Category 
         offsetY = offsetY + btnSize * 1;
@@ -129,7 +133,7 @@ typedef enum {
                 MyButton *btn = [[MyButton alloc]initWithFrame:CGRectMake(offsetX, offsetY, btnSize, tempHeight)];
                 [btn setTitle:numPadList[index] forState:UIControlStateNormal];
                 btn.font = [UIFont fontWithName:font.fontName size:20];
-//                btn.tag = index;
+                btn.tag = index;
                 [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:btn];
                 
@@ -164,21 +168,95 @@ typedef enum {
 
     MyButton *btn = (MyButton *)sender;
 
-    if (btn.tag > 0) {
+    if (btn.tag >= 100) {
         
         // Remove the current underline
         for (MyButton *subview in self.subviews)
         {
-            if (subview.tag > 0) {
+            if (subview.tag >= 100) {
                 [subview hideUnderLine];
             }
         }
         // Handle action for button
         [btn showUnderLine];
-        NSLog(@"Current Category is: %@", btn.titleLabel.text);
+        
     }else{
         
-    } 
+        switch (btn.tag) {
+            case 3: // tag = 3 is C => Reset the label to 0
+                [self updateText:@"0" forLabel:self.displayLabel];
+                break;
+            
+            case 7: // back button
+                [self updateText:[self deleteString:self.displayLabel.text] forLabel:self.displayLabel];
+                break;
+            case 11: // OK button
+                
+                break;
+            case 14: // . button
+                [self updateText:[self updateStringWithDot:self.displayLabel.text] forLabel:self.displayLabel] ;
+                break;
+            default:
+                [self updateText:[self updateString:self.displayLabel.text whenBtnPress:btn] forLabel:self.displayLabel];
+                break;
+        }
+    }
+}
+
+- (NSString *)updateString:(NSString *)string whenBtnPress:(MyButton *)btn{
+    NSString *newString;
+    
+    if ([string isEqualToString:@"0"]) {
+        if (![btn.titleLabel.text isEqualToString:@"00"]) {
+            newString = btn.titleLabel.text;
+        }else{
+            newString = @"0";
+        }
+    }else{
+        newString = [string stringByAppendingString:btn.titleLabel.text];
+    }
+    
+    return newString;
+}
+
+- (NSString *)deleteString:(NSString *)string{
+    // This is delete only last character
+    int length = (int)string.length;
+    
+    if ((![string isEqualToString:@"0"]) && (length > 1)) {
+        string = [string substringToIndex:string.length -1];
+    }else{
+        string = @"0";
+    }
+    return string;
+}
+
+- (NSString *)updateStringWithDot:(NSString *)string{
+    
+    NSUInteger len = [string length];
+    unichar buffer[len+1];
+    BOOL exist = NO;
+    NSString *dot = [NSString stringWithFormat:@"."];
+    [string getCharacters:buffer range:NSMakeRange(0, len)];
+
+    for(int i = 0; i < len; i++) {
+        NSString *needToCheck = [NSString stringWithFormat:@"%C", buffer[i]];
+        if ([needToCheck isEqualToString:@"."]) {
+            return string;
+        }
+    }
+    
+    string = [string stringByAppendingString:@"."];
+    return string;
+}
+
+- (void)updateText:(NSString *)text forLabel:(UILabel *)label{
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.15;
+    animation.type = kCATransitionFade;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [label.layer addAnimation:animation forKey:@"changeTextTransition"];
+    label.text = text;
 }
 
 @end
