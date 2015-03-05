@@ -115,10 +115,11 @@ NSString * const DateField = @"Date";
     if (self.loadingView == nil) {
         
         // create loading view
-        self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+        self.loadingView = [[SplittingTriangle alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        self.loadingView.center = self.view.center;
         [self.loadingView setForeColor:[UIColor colorWithRed:25.0/255 green:191.0/255 blue:214.0/255 alpha:1]
-                          andBackColor:[UIColor clearColor]];
-        // self.loadingView.center = self.view.center;
+                          andBackColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1]];
+        
         self.loadingView.clockwise = YES;
         self.loadingView.duration = 1.5;
         self.loadingView.radius = 5;
@@ -126,7 +127,7 @@ NSString * const DateField = @"Date";
     }
     
     self.isLoading = YES;
-    self.loadingView.alpha = 1.0;
+    self.loadingView.alpha = 0.9;
     if (self.loadingView.superview == nil) {
         [self.view addSubview:self.loadingView];
     }

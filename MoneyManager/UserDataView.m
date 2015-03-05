@@ -51,10 +51,10 @@
     UIButton *title = [UIButton buttonWithType:UIButtonTypeCustom];
     title.frame = CGRectMake(10, 0, self.frame.size.width* 0.75, rowHeight - 20);
     title.backgroundColor = [UIColor colorWithRed:253/255.0 green:147/255.0 blue:100/255.0 alpha:1];
-    title.font = [UIFont fontWithName:@"HighThinLIGHT" size:20];
+    title.font = [UIFont fontWithName:@"Steiner" size:15];
     title.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     title.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    title.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    title.contentEdgeInsets = UIEdgeInsetsMake(7, 5, 0, 0);
     
     // create attributed string for title
     NSString *titleString = [NSString stringWithFormat:@"OVERVIEW"];
