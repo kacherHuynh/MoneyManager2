@@ -37,8 +37,6 @@ NSString * const DateField = @"Date";
 @property (nonatomic) AddingView *addingView;
 @property (nonatomic) UIButton *addButton;
 @property (nonatomic) BOOL isLoading;
-//@property (nonatomic) int foods,trains,shopping,general;
-//@property (nonatomic) float foodsRate,trainRate,shoppingRate,genralRate;
 
 
 @end
@@ -146,49 +144,6 @@ NSString * const DateField = @"Date";
 
 }
 
-- (void)addBlurEffect{
-
-//    if (self.imageView == nil) {
-//        self.imageView = [[UIImageView alloc]init];
-//        self.imageView.frame = self.view.frame;
-//        
-//        // Create effect view
-//        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-//        self.blurView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-//        self.blurView.frame = self.imageView.bounds;
-//    }
-//    
-//    // Take screen shot at the time we add effect
-//    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-//        UIGraphicsBeginImageContextWithOptions(self.view.window.bounds.size, NO, [UIScreen mainScreen].scale);
-//    else
-//        UIGraphicsBeginImageContext(self.view.window.bounds.size);
-//    
-//    [self.view.window.layer renderInContext:UIGraphicsGetCurrentContext()];
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    self.imageView.image = image;
-//    [self.view addSubview:self.imageView];
-//    self.blurView.alpha = 0;
-//    
-//    [self.view addSubview:self.blurView];
-//    [UIView animateWithDuration:0.2 animations:^{
-//        self.blurView.alpha = 1;
-//    }];
-}
-
-- (void)removeBlurEffect{
-    
-//    [UIView animateWithDuration:3 animations:^{
-//        self.imageView.alpha = 0;
-//    } completion:^(BOOL finished) {
-//        [self.imageView removeFromSuperview];
-//        [self.blurView removeFromSuperview];
-//        self.imageView.alpha = 1;
-//    }];
-
-}
 
 #pragma mark PREPARE DATA
 

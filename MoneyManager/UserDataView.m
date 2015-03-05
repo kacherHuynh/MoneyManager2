@@ -19,13 +19,7 @@
 
 @implementation UserDataView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 - (void)customInit{
     // This version, we don't allow user to add new category
@@ -51,14 +45,7 @@
     float valueColWidth = categoryColWidth;
     float rateColWidth = valueColWidth;
     
-    // Create label for Title
-    
-//    MyLabel *title = [[MyLabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, rowHeight)];
-//    title.text = @"OVERVIEW (this month)";
-//    title.center = CGPointMake(self.center.x, rowHeight/2);
-//    title.font = [UIFont fontWithName:@"QuicksandLight-Regular" size:24.0];
-//    title.textColor = self.color;
-//    [self addSubview:title];
+
     
     // Title button uses for changing time interval
     UIButton *title = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -99,11 +86,11 @@
     addBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
     [addBtn setTitle:@"+" forState:UIControlStateNormal];
     [addBtn addTarget:self action:@selector(addBtnPressed) forControlEvents:UIControlEventTouchUpInside];
-    // TO DO: add target method for add btn
-    
-    
+   
     [self addSubview:addBtn];
-    // ----- DONE FOR TITLE
+    
+    // ----- DONE FOR TITLE---------------
+    
     rowHeight = (self.frame.size.height - title.frame.size.height) /4;
     
     self.categoryList = [[NSArray alloc]initWithObjects:@"Foods", @"Train", @"Shopping", @"General", nil];
