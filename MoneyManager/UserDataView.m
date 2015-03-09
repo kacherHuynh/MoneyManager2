@@ -93,7 +93,7 @@
     
     rowHeight = (self.frame.size.height - title.frame.size.height) /4;
     
-    self.categoryList = [[NSArray alloc]initWithObjects:@"Foods", @"Train", @"Shopping", @"General", nil];
+    self.categoryList = [[NSArray alloc]initWithObjects:@"Food", @"Train", @"Shopping", @"General", nil];
     float x = 0;
     float y = title.frame.origin.y + title.frame.size.height;
     for (int i = 0; i < self.categoryList.count; i++) {
@@ -126,7 +126,7 @@
         
         MyLabel *value = [[MyLabel alloc]initWithFrame:CGRectMake(x+categoryColWidth, y, valueColWidth, rowHeight)];
         value.tag = i+1;
-        value.text = @"00000";
+        value.text = @"0";
         value.font = self.font;
         value.textColor = self.color;
         value.textAlignment = NSTextAlignmentCenter;
@@ -164,7 +164,7 @@
     int food = 0, train = 0, shopping = 0, general = 0;
     
     for (int i = 0; i < record.count ; i++) {
-        if ([record[i][@"Category"] isEqualToString:@"Foods"]) {
+        if ([record[i][@"Category"] isEqualToString:@"Food"]) {
             // Calculate for Foods here
             
             food += [record[i][@"Amount"] intValue];

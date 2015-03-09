@@ -163,7 +163,7 @@ NSString * const DateField = @"Date";
         }
         
         if (self.userCategory.count == 0) {
-            [self.userCategory addObject:[NSString stringWithFormat:@"Foods"]];
+            [self.userCategory addObject:[NSString stringWithFormat:@"Food"]];
             [self.userCategory addObject:[NSString stringWithFormat:@"Train"]];
             [self.userCategory addObject:[NSString stringWithFormat:@"Shopping"]];
             [self.userCategory addObject:[NSString stringWithFormat:@"General"]];
@@ -287,9 +287,8 @@ NSString * const DateField = @"Date";
         }else{
             NSLog(@"ADDED SUCCESSFULY");
             dispatch_async(dispatch_get_main_queue(), ^{
-                sleep(1);
-                [self hideLoadingScreen];
-                [self refreshUserDataView:self.userDataView];
+                [self performSelector:@selector(hideLoadingScreen) withObject:nil afterDelay:2];
+                [self performSelector:@selector(refreshUserDataView:) withObject:self.userDataView afterDelay:2];
             });
         }
     }];
@@ -368,7 +367,7 @@ NSString * const DateField = @"Date";
     
     NSPredicate *condition = [NSPredicate predicateWithFormat:@"%K == %@",UserIDField, self.userID];
     
-    CKQuery *query = [[CKQuery alloc]initWithRecordType:UserCategoryRecordType predicate:condition];
+    CKQuery *query = [[CKQuery alloc]initWithRecordType:UserRecordType predicate:condition];
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc]initWithQuery:query];
     

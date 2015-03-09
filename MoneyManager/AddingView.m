@@ -14,7 +14,7 @@ int const colNum = 4;
 int const rowNum = 6;
 
 typedef enum {
-    kFoods = 100,
+    kFood = 100,
     kTrain,
     kShopping,
     kGeneral
@@ -90,7 +90,7 @@ typedef enum {
         
             switch (i) {
                 case 0:
-                    btn.tag = kFoods;
+                    btn.tag = kFood;
                     break;
                 case 1:
                     btn.tag = kTrain;
@@ -166,12 +166,7 @@ typedef enum {
     if (btn.tag >= 100) {
         
         // Remove the current underline
-        for (MyButton *subview in self.subviews)
-        {
-            if (subview.tag >= 100) {
-                [subview hideUnderLine];
-            }
-        }
+        [self removeUnderline];
         // Handle action for button
         [btn showUnderLine];
         self.category = btn.titleLabel.text;
@@ -257,8 +252,18 @@ typedef enum {
     for (UITouch *touch in touches) {
         CGPoint point = [touch locationInView:self];
         if (point.y < self.topPt || point.y > self.bottomPt) {
+            self.displayLabel.text = @"0";
+            self.category = nil;
+            [self removeUnderline];
             [self removeFromSuperview];
         }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex ==1) {
+        [self.mainView okayBtnPressedWithValue:self.displayLabel.text forCategory:self.category];
+        self.displayLabel.text = @"0";
     }
 }
 
@@ -275,10 +280,12 @@ typedef enum {
     [alert show];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex ==1) {
-        [self.mainView okayBtnPressedWithValue:self.displayLabel.text forCategory:self.category];
-        self.displayLabel.text = @"0";
+- (void)removeUnderline{
+    for (MyButton *subview in self.subviews)
+    {
+        if (subview.tag >= 100) {
+            [subview hideUnderLine];
+        }
     }
 }
 
